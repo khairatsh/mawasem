@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>مواسم | الصفحة الرئيسية</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <!-- شريط العروض المتحرك -->
+        <div class="top-bar">
+            <span id="offer-text" style="transition: opacity 0.5s ease-in-out;">توصيل مجاني للطلبات فوق 200 ريال</span>
+        </div>
+
+        <header>
+            <div class="header-container">
+                <!-- أيقونة البرجر للموبايل -->
+                <button class="mobile-menu-btn" onclick="toggleMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="logo">
+                    <h1>مواسم</h1>
+                    <span>Mawasem</span>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="ابحث عن منتجك المفضل...">
+                    <button><i class="fa-solid fa-search"></i></button>
+                </div>
+
+                <div class="header-icons">
+                    <a href="https://wa.me/966500000000" target="_blank" class="whatsapp-support" title="تواصل معنا">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- شريط التنقل -->
+        <nav class="seasons-nav">
+            <div class="nav-container">
+                <a href="index.html" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a>
+                <a href="summer.html"><i class="fa-solid fa-sun"></i> الصيف</a>
+                <a href="school.html"><i class="fa-solid fa-school"></i> عودة المدارس</a>
+                <a href="winter.html"><i class="fa-solid fa-snowflake"></i> الشتاء</a>
+                <a href="wedding.html"><i class="fa-solid fa-ring"></i> الزواج</a>
+                <a href="babies.html"><i class="fa-solid fa-baby"></i> البيبيهات</a>
+            </div>
+        </nav>
+
+        <!-- البانر الرئيسي المتحرك (Hero Slider) -->
+        <section class="hero-slider-container">
+            <!-- حاوية الصور -->
+            <div id="hero-slides" class="hero-slides">
+                <!-- سيتم إضافة الصور برمجياً هنا -->
+            </div>
+            
+            <!-- أزرار التنقل اليدوي -->
+            <button class="slider-btn prev-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-right"></i></button>
+            <button class="slider-btn next-btn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-left"></i></button>
+            
+            <!-- نقاط التنقل السفلية (Dots) -->
+            <div id="slider-dots" class="slider-dots"></div>
+        </section>
+
+        <!-- قسم: وصل حديثاً -->
+        <main class="products-section">
+            <div class="section-header">
+                <h2>وصل حديثاً</h2>
+            </div>
+            <!-- شريط الفلتر المصحح لقسم وصل حديثاً -->
+            <div class="filter-bar">
+                <label><i class="fa-solid fa-arrow-down-short-wide"></i> ترتيب:</label>
+                <select onchange="sortProducts(this.value, 'new-arrivals-container')">
+                    <option value="default">الافتراضي</option>
+                    <option value="price-low">السعر: من الأقل إلى الأعلى</option>
+                    <option value="price-high">السعر: من الأعلى إلى الأقل</option>
+                </select>
+            </div>
+            <!-- الحاوية التي سيتم رسم المنتجات بداخلها -->
+            <div id="new-arrivals-container" class="products-grid"></div>
+        </main>
+
+        <!-- قسم: عروض مميزة -->
+        <main class="products-section" style="background-color: #fff; padding-top: 40px; border-top: 1px solid #eee;">
+            <div class="section-header">
+                <h2>عروض مميزة</h2>
+            </div>
+            <!-- شريط الفلتر المضاف لقسم العروض -->
+            <div class="filter-bar">
+                <label><i class="fa-solid fa-arrow-down-short-wide"></i> ترتيب:</label>
+                <select onchange="sortProducts(this.value, 'offers-container')">
+                    <option value="default">الافتراضي</option>
+                    <option value="price-low">السعر: من الأقل إلى الأعلى</option>
+                    <option value="price-high">السعر: من الأعلى إلى الأقل</option>
+                </select>
+            </div>
+            <!-- الحاوية الثانية -->
+            <div id="offers-container" class="products-grid"></div>
+        </main>
+
+        <!-- قسم: تصفح كل المنتجات (مع تحميل المزيد) -->
+        <main class="products-section" style="background-color: #fafafa; padding-top: 40px; padding-bottom: 40px; border-top: 1px solid #eee;">
+            <div class="section-header">
+                <h2>تصفح كل المنتجات</h2>
+            </div>
+            
+            <!-- الفلتر المخصص لهذا القسم -->
+            <div class="filter-bar">
+                <label><i class="fa-solid fa-arrow-down-short-wide"></i> ترتيب:</label>
+                <select onchange="sortAllProducts(this.value)">
+                    <option value="default">الافتراضي</option>
+                    <option value="price-low">السعر: من الأقل إلى الأعلى</option>
+                    <option value="price-high">السعر: من الأعلى إلى الأقل</option>
+                </select>
+            </div>
+
+            <!-- حاوية عرض كل المنتجات -->
+            <div id="all-products-container" class="products-grid"></div>
+            
+            <!-- زر تحميل المزيد -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="load-more-btn" onclick="loadMoreProducts()" style="padding: 10px 30px; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: bold; transition: background 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <i class="fa-solid fa-rotate-right"></i> تحميل المزيد
+                </button>
+            </div>
+        </main>
+
+        <!-- 1. استدعاء جميع ملفات الأقسام لكي نبحث بداخلها -->
+        <script src="js/categories/school.js" defer></script>
+        <script src="js/categories/summer.js" defer></script>
+        <script src="js/categories/winter.js" defer></script>
+        <script src="js/categories/wedding.js" defer></script>
+        <script src="js/categories/babies.js" defer></script>
+        
+        <!-- 2. استدعاء ملف التشغيل الرئيسي -->
+        <script src="js/main.js" defer></script>
+        
+      
+    </body>
+</html>

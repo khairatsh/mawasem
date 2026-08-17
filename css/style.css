@@ -1,0 +1,581 @@
+/* الإعدادات الأساسية */
+:root {
+    --primary-color: #f7bbbd; /* لون ناعم ومميز مثل مواقع التجميل/الهدايا */
+    --secondary-color: #333;
+    --bg-color: #fcfcfc;
+    --text-color: #4a4a4a;
+    --border-color: #eaeaea;
+    --whatsapp-color: #25D366;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* شريط الإعلانات العلوي */
+.top-bar {
+    background-color: #000000; /* اللون الأسود */
+    color: #ffffff; /* لون النص أبيض */
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    width: 100%;
+    z-index: 101; /* ليبقى فوق باقي العناصر */
+    position: relative;
+}
+/* الهيدر الرئيسي */
+header {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: -5px;
+}
+
+.logo span {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+.search-bar {
+    display: flex;
+    flex: 1;
+    max-width: 500px;
+    background-color: #f5f5f5;
+    border-radius: 25px;
+    /* overflow: hidden; قمنا بإلغاء هذا السطر لتتمكن القائمة المنسدلة من الظهور */
+    position: relative; /* مهم جداً لربط قائمة الاقتراحات بشريط البحث */
+    padding: 5px 15px;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.search-bar button {
+    border: none;
+    background: transparent;
+    color: #888;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+/* تصميم قائمة الاقتراحات الحية */
+.search-suggestions {
+    position: absolute;
+    top: 110%; /* تظهر أسفل الشريط مباشرة */
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-height: 250px;
+    overflow-y: auto;
+    display: none; /* مخفية افتراضياً */
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f9f9f9;
+    transition: background 0.2s;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: #f5f5f5;
+}
+
+.suggestion-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.suggestion-item span {
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.header-icons .whatsapp-support {
+    color: var(--whatsapp-color);
+    font-size: 1.8rem;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.header-icons .whatsapp-support:hover {
+    transform: scale(1.1);
+}
+
+/* شريط التنقل */
+.seasons-nav {
+    background-color: white;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+    overflow-x: auto; /* للسماح بالتمرير في الموبايل */
+}
+
+/* شريط التنقل الجديد */
+.seasons-nav a {
+    display: inline-block;
+    text-decoration: none;
+    background: transparent;
+    padding: 15px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+}
+
+.seasons-nav a i {
+    margin-left: 5px;
+}
+
+.seasons-nav a:hover,
+.seasons-nav a.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.seasons-nav button i {
+    margin-left: 5px;
+}
+
+.seasons-nav button:hover,
+.seasons-nav button.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* ========================================= */
+/* تصميم البانر المتحرك (Hero Slider) */
+/* ========================================= */
+.hero-slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px; /* ليتماشى مع حجم الهيدر */
+    margin: 0 auto 40px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.hero-slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+.hero-slide {
+    min-width: 100%; /* كل صورة تأخذ العرض بالكامل */
+    position: relative;
+    cursor: pointer;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover; /* يمنع تشوه الصورة */
+    display: block;
+}
+
+/* أزرار التنقل اليمين واليسار */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-btn:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.prev-btn { right: 15px; } /* الزر الأيمن */
+.next-btn { left: 15px; } /* الزر الأيسر */
+
+/* نقاط التنقل السفلية */
+.slider-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dot.active {
+    background: white;
+    width: 30px; /* تمدد النقطة النشطة لتبدو كخط صغير */
+    border-radius: 5px;
+}
+
+/* التجاوب مع الجوال */
+@media (max-width: 768px) {
+    .hero-slide img {
+        height: 200px; /* تصغير ارتفاع البانر في الموبايل */
+    }
+    .hero-slider-container {
+        border-radius: 0; /* شكل أفضل وأعرض في شاشات الجوال */
+    }
+    .slider-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+
+/* قسم المنتجات */
+.products-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    background-color: var(--primary-color);
+    bottom: -10px;
+    left: 25%;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+/* كارت المنتج */
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.product-image {
+    position: relative;
+    padding-top: 100%; /* لعمل مربع مثالي للصورة */
+    overflow: hidden;
+}
+
+.product-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-info h3 {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.price span {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* زر الواتساب للطلب */
+.order-whatsapp-btn {
+    background-color: white;
+    color: var(--whatsapp-color);
+    border: 1px solid var(--whatsapp-color);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.order-whatsapp-btn:hover {
+    background-color: var(--whatsapp-color);
+    color: white;
+}
+
+/* تصميم شريط الترتيب (الفلتر) */
+.filter-bar {
+    display: flex;
+    justify-content: flex-end; /* لجعله في يسار الشاشة */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.filter-bar label {
+    font-weight: 600;
+    color: var(--secondary-color);
+    font-size: 0.95rem;
+}
+
+.filter-bar select {
+    padding: 8px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: white;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    transition: border-color 0.3s;
+}
+
+.filter-bar select:focus {
+    border-color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .filter-bar {
+        justify-content: center; /* توسيط الفلتر في شاشات الجوال */
+    }
+    .filter-bar select {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+/* التجاوب مع الجوال */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+    }
+    .search-bar {
+        max-width: 100%;
+        width: 100%;
+    }
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* الشارات (Badges) فوق صورة المنتج */
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.new-badge {
+    background-color: #2ecc71; /* أخضر */
+}
+
+.featured-badge {
+    background-color: #e74c3c; /* أحمر */
+}
+
+/* زر قائمة الموبايل (مخفي في الشاشات الكبيرة) */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+/* استبدل كود التجاوب مع الجوال القديم بهذا الكود بالكامل */
+@media (max-width: 768px) {
+    /* ترتيب الهيدر ليبقى الشعار والزر في نفس السطر */
+    .header-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .mobile-menu-btn {
+        display: block; /* إظهار أيقونة البرجر في الجوال */
+    }
+    
+    /* جعل شريط البحث ينزل لسطر جديد في الموبايل لترتيب المساحة */
+    .search-bar {
+        order: 3;
+        max-width: 100%;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* تحويل حاوية شريط التنقل لقائمة عمودية مخفية */
+    .seasons-nav .nav-container {
+        display: none; /* مخفية افتراضياً */
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        background-color: white;
+        position: absolute; /* لتطفو فوق المنتجات */
+        left: 0;
+        z-index: 99;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* الكلاس الذي سيتم إضافته بالجافاسكريبت لإظهار القائمة */
+    .seasons-nav .nav-container.show-menu {
+        display: flex;
+    }
+
+    /* تصميم روابط الأقسام داخل القائمة المنسدلة */
+    .seasons-nav a {
+        padding: 15px 20px;
+        border-bottom: 1px solid var(--border-color);
+        width: 100%;
+        text-align: right; /* محاذاة لليمين */
+    }
+    
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+}

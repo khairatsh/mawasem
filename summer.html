@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مواسم | موسم الصيف</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- شريط العروض المتحرك -->
+    <div class="top-bar">
+        <span id="offer-text" style="transition: opacity 0.5s ease-in-out;">توصيل مجاني للطلبات فوق 200 ريال</span>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <!-- أيقونة البرجر للموبايل -->
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="logo">
+                <h1>مواسم</h1>
+                <span>Mawasem</span>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن منتجك المفضل...">
+                <button><i class="fa-solid fa-search"></i></button>
+            </div>
+
+            <div class="header-icons">
+                <a href="https://wa.me/966500000000" target="_blank" class="whatsapp-support" title="تواصل معنا">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- شريط التنقل (الآن عبارة عن روابط فعلية) -->
+    <nav class="seasons-nav">
+        <div class="nav-container">
+            <a href="index.html" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a>
+            <a href="summer.html"><i class="fa-solid fa-sun"></i> الصيف</a>
+            <a href="school.html"><i class="fa-solid fa-school"></i> عودة المدارس</a>
+            <a href="winter.html"><i class="fa-solid fa-snowflake"></i> الشتاء</a>
+            <a href="wedding.html"><i class="fa-solid fa-ring"></i> الزواج</a>
+            <a href="babies.html"><i class="fa-solid fa-baby"></i> البيبيهات</a>
+        </div>
+    </nav>
+
+    <main class="products-section" style="margin-top: 40px;">
+        <div class="section-header">
+            <h2>تشكيلة الصيف المنعشة</h2>
+        </div>
+        <!-- شريط الفلتر الجديد -->
+        <div class="filter-bar">
+            <label><i class="fa-solid fa-arrow-down-short-wide"></i> ترتيب:</label>
+            <!-- لاحظ أننا نمرر 'summer-container' لكي يقوم بترتيب هذا القسم تحديداً -->
+            <select onchange="sortProducts(this.value, 'summer-container')">
+                <option value="default">الافتراضي</option>
+                <option value="price-low">السعر: من الأقل إلى الأعلى</option>
+                <option value="price-high">السعر: من الأعلى إلى الأقل</option>
+            </select>
+        </div>
+        <!-- حاوية منتجات الصيف -->
+        <div id="summer-container" class="products-grid"></div>
+    </main>
+
+    <!-- استدعاء ملف الصيف فقط + ملف التشغيل -->
+    <script src="js/categories/summer.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- تشغيل الدالة لملء صفحة الصيف -->
+    <script>
+        window.onload = () => {
+            // "summerProducts" هي المصفوفة الموجودة داخل ملف summer.js
+            renderProducts(summerProducts, 'summer-container');
+        };
+    </script>
+</body>
+</html>
