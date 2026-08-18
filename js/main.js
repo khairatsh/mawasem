@@ -458,7 +458,7 @@ function sortAllProducts(sortType) {
 // ==========================================
 // الاتصال بخادم مواسم (Backend Integration)
 // ==========================================
-const API_BASE_URL = 'https://mawasem-test.onrender.com';
+const API_BASE_URL = 'https://mawasem-test.onrender.com/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     
