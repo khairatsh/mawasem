@@ -11,7 +11,7 @@
     </head>
     <body>
 
-        <!-- شريط العروض المتحرك -->
+       <!-- شريط العروض المتحرك -->
         <div class="top-bar">
             <span id="offer-text" style="transition: opacity 0.5s ease-in-out;">توصيل مجاني للطلبات فوق 200 ريال</span>
         </div>
@@ -33,9 +33,27 @@
                     <button><i class="fa-solid fa-search"></i></button>
                 </div>
 
+                <!-- تم تجميع أيقونات المتجر هنا (حساب، سلة، واتساب) -->
                 <div class="header-icons">
-                    <a href="https://wa.me/966500000000" target="_blank" class="whatsapp-support" title="تواصل معنا">
+                    <!-- أيقونة المستخدم -->
+                    <a href="login.html" id="authLink" class="store-icon" title="تسجيل الدخول">
+                        <i class="fa-solid fa-user"></i>
+                        <span id="authText" class="icon-text">دخول</span>
+                    </a>
+
+                    <!-- أيقونة السلة -->
+                    <a href="cart.html" class="store-icon cart-icon" title="سلة المشتريات">
+                        <div class="cart-badge-wrapper">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span id="navCartCount" class="cart-badge" style="display: none;">0</span>
+                        </div>
+                        <span class="icon-text">السلة</span>
+                    </a>
+
+                    <!-- أيقونة الدعم الفني (الواتساب) -->
+                    <a href="https://wa.me/966500000000" target="_blank" class="store-icon whatsapp-support" title="تواصل معنا">
                         <i class="fa-brands fa-whatsapp"></i>
+                        <!-- يمكن إخفاء النص للواتساب أو تركه حسب رغبتك -->
                     </a>
                 </div>
             </div>
@@ -45,11 +63,11 @@
         <nav class="seasons-nav">
             <div class="nav-container">
                 <a href="index.html" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a>
-                <a href="summer.html"><i class="fa-solid fa-sun"></i> الصيف</a>
-                <a href="school.html"><i class="fa-solid fa-school"></i> عودة المدارس</a>
-                <a href="winter.html"><i class="fa-solid fa-snowflake"></i> الشتاء</a>
-                <a href="wedding.html"><i class="fa-solid fa-ring"></i> الزواج</a>
-                <a href="babies.html"><i class="fa-solid fa-baby"></i> البيبيهات</a>
+                <a href="category.html?type=summer"><i class="fa-solid fa-sun"></i> الصيف</a>
+                <a href="category.html?type=school"><i class="fa-solid fa-school"></i> عودة المدارس</a>
+                <a href="category.html?type=winter"><i class="fa-solid fa-snowflake"></i> الشتاء</a>
+                <a href="category.html?type=wedding"><i class="fa-solid fa-ring"></i> الزواج</a>
+                <a href="category.html?type=babies"><i class="fa-solid fa-baby"></i> البيبيهات</a>
             </div>
         </nav>
 
@@ -137,6 +155,7 @@
         <script src="js/categories/winter.js" defer></script>
         <script src="js/categories/wedding.js" defer></script>
         <script src="js/categories/babies.js" defer></script>
+
         
         <!-- 2. استدعاء ملف التشغيل الرئيسي -->
         <script src="js/main.js" defer></script>

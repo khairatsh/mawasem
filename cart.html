@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مواسم - سلة المشتريات</title>
+    <!-- استدعاء خطوط وأيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .cart-container { max-width: 900px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        
+        /* تنسيق المنتجات داخل السلة */
+        .cart-item { display: flex; align-items: center; gap: 20px; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #eee; }
+        .item-details { flex-grow: 1; display: flex; flex-direction: column; gap: 5px; }
+        .item-title { font-weight: bold; font-size: 1.2em; color: #333; }
+        .item-price-qty { color: #666; font-size: 0.95em; }
+        .item-total { font-weight: bold; font-size: 1.2em; color: #ff9800; text-align: left; min-width: 100px; }
+
+        /* ملخص الطلب */
+        .cart-summary { margin-top: 30px; background: #f9f9fa; padding: 25px; border-radius: 10px; border: 1px solid #eee; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 1.1em; color: #333; }
+        .summary-total { font-size: 1.4em; font-weight: bold; color: #e74c3c; border-top: 2px dashed #ccc; padding-top: 15px; }
+        
+        .checkout-btn { display: block; padding: 15px; background: #ff9800; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.2em; transition: 0.3s; cursor: pointer; border: none; width: 100%; text-align: center; margin-top: 20px; }
+        .checkout-btn:hover { background: #e68a00; }
+        .empty-cart-msg { text-align: center; color: #888; padding: 60px 0; font-size: 1.2em; }
+    </style>
+</head>
+<body>
+
+    <!-- شريط العروض المتحرك -->
+    <div class="top-bar">
+        <span id="offer-text" style="transition: opacity 0.5s ease-in-out;">توصيل مجاني للطلبات فوق 200 ريال</span>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="logo">
+                <h1>مواسم</h1>
+                <span>Mawasem</span>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن منتجك المفضل...">
+                <button><i class="fa-solid fa-search"></i></button>
+            </div>
+
+            <div class="header-icons">
+                <a href="login.html" id="authLink" class="store-icon" title="تسجيل الدخول">
+                    <i class="fa-solid fa-user"></i>
+                    <span id="authText" class="icon-text">دخول</span>
+                </a>
+
+                <a href="cart.html" class="store-icon cart-icon" title="سلة المشتريات">
+                    <div class="cart-badge-wrapper">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="navCartCount" class="cart-badge" style="display: none;">0</span>
+                    </div>
+                    <span class="icon-text">السلة</span>
+                </a>
+
+                <a href="https://wa.me/966500000000" target="_blank" class="store-icon whatsapp-support" title="تواصل معنا">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- شريط التنقل -->
+    <nav class="seasons-nav">
+        <div class="nav-container">
+            <a href="index.html" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a>
+            <a href="category.html?type=summer"><i class="fa-solid fa-sun"></i> الصيف</a>
+            <a href="category.html?type=school"><i class="fa-solid fa-school"></i> عودة المدارس</a>
+            <a href="category.html?type=winter"><i class="fa-solid fa-snowflake"></i> الشتاء</a>
+            <a href="category.html?type=wedding"><i class="fa-solid fa-ring"></i> الزواج</a>
+            <a href="category.html?type=babies"><i class="fa-solid fa-baby"></i> البيبيهات</a>
+        </div>
+    </nav>
+
+    <!-- محتوى السلة -->
+    <div class="cart-container">
+        <div class="cart-header">
+            <h2>🛒 سلة المشتريات</h2>
+            <span id="cartCountBadge" class="badge">0 منتجات</span>
+        </div>
+
+        <div id="cartItemsContainer">
+            <div class="empty-cart-msg">جاري تحميل السلة...</div>
+        </div>
+
+        <div class="cart-summary" id="cartSummary" style="display: none;">
+            <div class="summary-row">
+                <span>المجموع الفرعي:</span>
+                <span id="subTotal">0 ريال</span>
+            </div>
+            <div class="summary-row">
+                <span>رسوم التوصيل:</span>
+                <span id="deliveryFeeDisplay">جاري التحميل...</span>
+            </div>
+            <div class="summary-row summary-total">
+                <span>الإجمالي:</span>
+                <span id="finalTotal">0 ريال</span>
+            </div>
+            <button class="checkout-btn" onclick="checkoutOrder()">إتمام الطلب الآن</button>
+        </div>
+    </div>
+
+    <!-- استدعاء ملفات بيانات المنتجات لتتمكن السلة من قراءة الصور والأسماء -->
+    <!-- يرجى التأكد من مسارات هذه الملفات لديك لتجنب ظهور "منتج غير معروف" -->
+    <script src="js/categories/summer.js"></script>
+    <script src="js/categories/school.js"></script>
+    <script src="js/categories/winter.js"></script>
+    <script src="js/categories/wedding.js"></script>
+    <script src="js/categories/babies.js"></script>
+
+
+    <!-- استدعاء الجافاسكريبت الرئيسي -->
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadUserCart);
+    </script>
+</body>
+</html>

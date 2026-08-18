@@ -1,23 +1,23 @@
-const summerProducts = [
+var summerProducts = [
     { 
         id: "su1", 
         name: "عوامة سباحة للأطفال", 
         price: 35, 
-        image: "https://via.placeholder.com/300?text=Float", 
+        image: "assets/images/summer/1.jpg", 
         status: "new-arrival" // سيسحب كـ وصل حديثاً
     },
     { 
         id: "su2", 
         name: "نظارة شمسية عصرية", 
         price: 80, 
-        image: "https://via.placeholder.com/300?text=Sunglasses", 
+        image: "assets/images/summer/2.webp", 
         status: "featured" // سيسحب كـ عرض مميز
     },
     { 
         id: "su3", 
         name: "كريم واقي شمس", 
         price: 95, 
-        image: "https://via.placeholder.com/300?text=Sunblock", 
+        image: "assets/images/summer/3.jfif", 
         status: "normal" // منتج عادي
     }
 ];

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مواسم - تسجيل الدخول</title>
+    <!-- استدعاء ملف التصميم الخاص بك -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* تنسيق بسيط وسريع لصفحة الدخول يمكنك نقله لاحقاً لـ style.css */
+        .auth-wrapper { display: flex; justify-content: center; gap: 40px; padding: 50px 20px; flex-wrap: wrap; }
+        .auth-box { border: 1px solid #ccc; padding: 30px; border-radius: 10px; width: 100%; max-width: 400px; text-align: center; }
+        .auth-box input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .auth-box button { width: 100%; padding: 10px; background-color: #333; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .auth-box button:hover { background-color: #555; }
+    </style>
+</head>
+<body>
+
+<!-- شريط العروض المتحرك -->
+    <div class="top-bar">
+        <span id="offer-text" style="transition: opacity 0.5s ease-in-out;">توصيل مجاني للطلبات فوق 200 ريال</span>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <!-- أيقونة البرجر للموبايل -->
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="logo">
+                <h1>مواسم</h1>
+                <span>Mawasem</span>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن منتجك المفضل...">
+                <button><i class="fa-solid fa-search"></i></button>
+            </div>
+
+            <!-- تم تجميع أيقونات المتجر هنا (حساب، سلة، واتساب) -->
+            <div class="header-icons">
+                <!-- أيقونة المستخدم -->
+                <a href="login.html" id="authLink" class="store-icon" title="تسجيل الدخول">
+                    <i class="fa-solid fa-user"></i>
+                    <span id="authText" class="icon-text">دخول</span>
+                </a>
+
+                <!-- أيقونة السلة -->
+                <a href="cart.html" class="store-icon cart-icon" title="سلة المشتريات">
+                    <div class="cart-badge-wrapper">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="navCartCount" class="cart-badge" style="display: none;">0</span>
+                    </div>
+                    <span class="icon-text">السلة</span>
+                </a>
+
+                <!-- أيقونة الدعم الفني (الواتساب) -->
+                <a href="https://wa.me/966500000000" target="_blank" class="store-icon whatsapp-support" title="تواصل معنا">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <!-- يمكن إخفاء النص للواتساب أو تركه حسب رغبتك -->
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- شريط التنقل -->
+    <nav class="seasons-nav">
+        <div class="nav-container">
+            <a href="index.html" class="active"><i class="fa-solid fa-house"></i> الرئيسية</a>
+            <a href="category.html?type=summer"><i class="fa-solid fa-sun"></i> الصيف</a>
+            <a href="category.html?type=school"><i class="fa-solid fa-school"></i> عودة المدارس</a>
+            <a href="category.html?type=winter"><i class="fa-solid fa-snowflake"></i> الشتاء</a>
+            <a href="category.html?type=wedding"><i class="fa-solid fa-ring"></i> الزواج</a>
+            <a href="category.html?type=babies"><i class="fa-solid fa-baby"></i> البيبيهات</a>
+        </div>
+    </nav>
+
+    <div class="auth-wrapper">
+        <!-- نموذج تسجيل الدخول -->
+        <div class="auth-box">
+            <h2>تسجيل الدخول</h2>
+            <form id="loginForm">
+                <input type="text" id="loginPhone" placeholder="رقم الهاتف" required>
+                <input type="password" id="loginPassword" placeholder="كلمة المرور" required>
+                <button type="submit">دخول</button>
+            </form>
+        </div>
+
+        <!-- نموذج إنشاء حساب -->
+        <div class="auth-box">
+            <h2>إنشاء حساب جديد</h2>
+            <form id="registerForm">
+                <input type="text" id="regName" placeholder="الاسم الكامل" required>
+                <input type="text" id="regPhone" placeholder="رقم الهاتف" required>
+                <input type="password" id="regPassword" placeholder="كلمة المرور" required>
+                <button type="submit">تسجيل حساب</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- استدعاء ملف الجافاسكريبت الرئيسي -->
+    <script src="js/main.js"></script>
+</body>
+</html>

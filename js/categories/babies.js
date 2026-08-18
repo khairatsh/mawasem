@@ -1,4 +1,4 @@
-const babiesProducts = [
-    { id: "b1", name: "عربة أطفال خفيفة", price: 450, image: "https://via.placeholder.com/200?text=Stroller" },
-    { id: "b2", name: "طقم ملابس قطنية للرضع", price: 85, image: "https://via.placeholder.com/200?text=Clothes" }
+var babiesProducts = [
+    { id: "b1", name: "عربة أطفال خفيفة", price: 450, image: "assets/images/babies/1.jfif" },
+    { id: "b2", name: "طقم ملابس قطنية للرضع", price: 85, image: "assets/images/babies/2.jfif" }
 ];

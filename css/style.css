@@ -54,6 +54,68 @@ header {
     gap: 15px;
 }
 
+/* ==========================================
+   تنسيق أيقونات الهيدر (الحساب، السلة، الواتساب)
+   ========================================== */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.store-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.store-icon i {
+    font-size: 22px;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+.icon-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: #777;
+}
+
+/* التأثير عند مرور الماوس (اللون البرتقالي) */
+.store-icon:hover i,
+.store-icon:hover .icon-text {
+    color: #ff9800; 
+}
+
+/* تنسيق فقاعة السلة الحمراء */
+.cart-badge-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #fff; /* إطار أبيض يفصلها عن الأيقونة */
+}
+
 .logo {
     text-align: center;
     color: var(--secondary-color);
@@ -578,4 +640,148 @@ footer {
     .hero h2 {
         font-size: 1.8rem;
     }
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff9800; /* لون برتقالي مميز للسلة */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #e68a00;
+}
+
+/* تنسيق زر حذف المنتج من السلة */
+.remove-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 15px; /* لإبعاده قليلاً عن السعر الإجمالي للمنتج */
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+    color: #c0392b;
+    transform: scale(1.1); /* تكبير الزر قليلاً عند مرور الماوس */
+}
+
+/* تنسيق أزرار التحكم بالكمية في السلة */
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.qty-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.qty-number {
+    font-size: 1.1em;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+
+/* ==========================================
+   تنسيقات زر المستخدم والقائمة المنسدلة
+========================================== */
+.user-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* شكل المستطيل الدائري لاسم المستخدم */
+.logged-in-badge {
+    background-color: #f4f6f9;
+    border: 1px solid #e0e5ec;
+    padding: 8px 16px;
+    border-radius: 25px; /* الحواف الدائرية */
+    color: var(--primary-color, #333);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+}
+
+.logged-in-badge:hover {
+    background-color: #e0e5ec;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* القائمة المنسدلة */
+.user-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 160px;
+    z-index: 1000;
+    border: 1px solid #eee;
+    animation: fadeInDown 0.2s ease-out;
+}
+
+.user-dropdown-menu.show {
+    display: block;
+}
+
+/* زر تسجيل الخروج داخل القائمة */
+.user-dropdown-item {
+    padding: 12px 20px;
+    color: #e74c3c;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.user-dropdown-item:hover {
+    background-color: #fdf2f2;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translate(-50%, -10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة التحكم الخاصة - مواسم</title>
+    <style>
+        body { background-color: #f4f6f9; font-family: Tahoma, sans-serif; padding: 20px; direction: rtl; }
+        .admin-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2, h3 { color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button { background: #ff9800; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1em; }
+        button:hover { background: #e68a00; }
+        .section-box { margin-bottom: 30px; background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <h2>🛠️ لوحة التحكم الخاصة (المتجر محلياً)</h2>
+
+        <!-- 1. إدارة رسوم التوصيل -->
+        <div class="section-box">
+            <h3>إدارة رسوم التوصيل</h3>
+            <div class="form-group">
+                <label>قيمة التوصيل (اكتب "مجاني" أو رقم السعر مثل 30):</label>
+                <input type="text" id="deliveryInput" placeholder="مجاني أو 30">
+            </div>
+            <button onclick="updateDelivery()">حفظ رسوم التوصيل</button>
+        </div>
+
+        
+        <!-- 2. تصدير بيانات العملاء -->
+        <div class="section-box">
+            <h3>حملات التسويق والعملاء</h3>
+            <p>سحب قائمة بجميع العملاء المسجلين (الأسماء وأرقام الهواتف) في ملف إكسل.</p>
+            <button onclick="exportUsers()" style="background: #27ae60;">تحميل قاعدة بيانات العملاء (Excel)</button>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://mawasem-test.onrender.com';
+
+        async function loadSettings() {
+            try {
+                const res = await fetch(`${API_BASE}/settings/delivery`);
+                const data = await res.json();
+                document.getElementById('deliveryInput').value = data.delivery_fee;
+            } catch (e) { console.error(e); }
+        }
+
+        async function updateDelivery() {
+            const fee = document.getElementById('deliveryInput').value;
+            const res = await fetch(`${API_BASE}/admin/settings/delivery?fee=${encodeURIComponent(fee)}`, { method: 'PUT' });
+            if (res.ok) alert('تم تحديث رسوم التوصيل بنجاح!');
+            else alert('خطأ في التحديث');
+        }
+
+        function exportUsers() {
+            window.open(`${API_BASE}/admin/export-users`, '_blank');
+        }
+
+        // إضافة منتج (يتم حفظه في localStorage لكي تراه صفحة المتجر فوراً)
+        function addNewProduct() {
+            const name = document.getElementById('prodName').value;
+            const price = document.getElementById('prodPrice').value;
+            const category = document.getElementById('prodCategory').value;
+            const image = document.getElementById('prodImage').value || 'https://via.placeholder.com/300';
+
+            if (!name || !price) {
+                alert('يرجى إدخال اسم المنتج والسعر على الأقل.');
+                return;
+            }
+
+            const newProduct = {
+                id: "prod_" + Date.now(),
+                name: name,
+                price: parseFloat(price),
+                image: image,
+                status: "new-arrival"
+            };
+
+            // حفظ المنتج في الـ localStorage الخاص بالمتجر
+            let customProducts = JSON.parse(localStorage.getItem('mawasem_custom_products')) || [];
+            customProducts.push({ category, product: newProduct });
+            localStorage.setItem('mawasem_custom_products', JSON.stringify(customProducts));
+
+            alert('تم إضافة المنتج بنجاح! سيظهر في المتجر مباشرة.');
+            document.getElementById('prodName').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodImage').value = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    </script>
+</body>
+</html>
