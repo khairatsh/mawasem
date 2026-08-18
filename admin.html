@@ -48,7 +48,38 @@
     </div>
 
     <script>
-        // رابط الخادم الحي (Render)
+
+        // تشغيل هذا الكود فور تحميل الصفحة
+        document.addEventListener("DOMContentLoaded", async () => {
+            // 1. نجلب التوكن من المتصفح
+            const token = localStorage.getItem("token"); // تأكد أن اسم التوكن يطابق ما تستخدمه في login
+            
+            // 2. إذا لم يكن مسجلاً للدخول أصلاً، اطرده للرئيسية
+            if (!token) {
+                window.location.href = "index.html"; 
+                return;
+            }
+
+            // 3. التحقق مما إذا كان مديراً عبر الاتصال بالخادم
+            try {
+                const response = await fetch("https://mawasem-test.onrender.com/api/admin/verify", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                // إذا رد الخادم بخطأ 403 أو 401 (غير مصرح)، اطرده للرئيسية فوراً
+                if (!response.ok) {
+                    window.location.href = "index.html";
+                }
+                // إذا كان مديراً، سيكمل المتصفح عرض الصفحة بشكل طبيعي
+            } catch (error) {
+                console.error("خطأ في التحقق من الصلاحيات:", error);
+                window.location.href = "index.html";
+            }
+        });
+                // رابط الخادم الحي (Render)
         const API_BASE = 'https://mawasem-test.onrender.com/api';
 
         // دالة جلب إعدادات التوصيل عند فتح الصفحة
