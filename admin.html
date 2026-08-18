@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>لوحة التحكم الخاصة - مواسم</title>
+    <!-- كود الحماية: ينفذ أولاً قبل تحميل الصفحة -->
+    <script>
+        const adminToken = localStorage.getItem('mawasem_token');
+        // إذا لم يكن هناك توكن، أطرد المستخدم فوراً للرئيسية
+        if (!adminToken) {
+            window.location.replace("index.html");
+        }
+    </script>
     <style>
         body { background-color: #f4f6f9; font-family: Tahoma, sans-serif; padding: 20px; direction: rtl; }
         .admin-container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -18,7 +26,7 @@
 <body>
 
     <div class="admin-container">
-        <h2>🛠️ لوحة التحكم الخاصة (المتجر محلياً)</h2>
+        <h2>🛠️ لوحة التحكم الخاصة</h2>
 
         <!-- 1. إدارة رسوم التوصيل -->
         <div class="section-box">
@@ -40,58 +48,56 @@
     </div>
 
     <script>
+        // رابط الخادم الحي (Render)
         const API_BASE = 'https://mawasem-test.onrender.com/api';
 
+        // دالة جلب إعدادات التوصيل عند فتح الصفحة
         async function loadSettings() {
             try {
                 const res = await fetch(`${API_BASE}/settings/delivery`);
                 const data = await res.json();
-                document.getElementById('deliveryInput').value = data.delivery_fee;
-            } catch (e) { console.error(e); }
+                if (data.delivery_fee) {
+                    document.getElementById('deliveryInput').value = data.delivery_fee;
+                }
+            } catch (e) { 
+                console.error(e); 
+            }
         }
 
+        // الدالة المحمية لتحديث التوصيل
         async function updateDelivery() {
-            const fee = document.getElementById('deliveryInput').value;
-            const res = await fetch(`${API_BASE}/admin/settings/delivery?fee=${encodeURIComponent(fee)}`, { method: 'PUT' });
-            if (res.ok) alert('تم تحديث رسوم التوصيل بنجاح!');
-            else alert('خطأ في التحديث');
+            const newFee = document.getElementById('deliveryInput').value;
+            // يمكننا استدعاء التوكن مباشرة من الـ localStorage هنا بدون تعريفه كـ const لكي لا يتعارض
+            const currentToken = localStorage.getItem('mawasem_token'); 
+
+            try {
+                const res = await fetch(`${API_BASE}/admin/settings/delivery?new_fee=${encodeURIComponent(newFee)}`, {
+                    method: 'POST', 
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}` // إرسال المفتاح السري للخادم
+                    }
+                });
+                
+                const data = await res.json();
+                
+                if (res.ok) {
+                    alert('تم تحديث رسوم التوصيل بنجاح!');
+                } else {
+                    alert('خطأ: ' + (data.detail || 'غير مصرح لك')); 
+                }
+            } catch (e) {
+                console.error(e);
+                alert('حدث خطأ في الاتصال بالخادم.');
+            }
         }
 
+        // دالة تصدير المستخدمين
         function exportUsers() {
+            // نمرر التوكن في الرابط أو نفتح نافذة جديدة مع مصادقة (لتبسيطها الآن نتركها كما هي ونحميها لاحقاً إذا أردت)
             window.open(`${API_BASE}/admin/export-users`, '_blank');
         }
 
-        // إضافة منتج (يتم حفظه في localStorage لكي تراه صفحة المتجر فوراً)
-        function addNewProduct() {
-            const name = document.getElementById('prodName').value;
-            const price = document.getElementById('prodPrice').value;
-            const category = document.getElementById('prodCategory').value;
-            const image = document.getElementById('prodImage').value || 'https://via.placeholder.com/300';
-
-            if (!name || !price) {
-                alert('يرجى إدخال اسم المنتج والسعر على الأقل.');
-                return;
-            }
-
-            const newProduct = {
-                id: "prod_" + Date.now(),
-                name: name,
-                price: parseFloat(price),
-                image: image,
-                status: "new-arrival"
-            };
-
-            // حفظ المنتج في الـ localStorage الخاص بالمتجر
-            let customProducts = JSON.parse(localStorage.getItem('mawasem_custom_products')) || [];
-            customProducts.push({ category, product: newProduct });
-            localStorage.setItem('mawasem_custom_products', JSON.stringify(customProducts));
-
-            alert('تم إضافة المنتج بنجاح! سيظهر في المتجر مباشرة.');
-            document.getElementById('prodName').value = '';
-            document.getElementById('prodPrice').value = '';
-            document.getElementById('prodImage').value = '';
-        }
-
+        // تشغيل دالة جلب الإعدادات بمجرد تحميل الصفحة
         document.addEventListener('DOMContentLoaded', loadSettings);
     </script>
 </body>
